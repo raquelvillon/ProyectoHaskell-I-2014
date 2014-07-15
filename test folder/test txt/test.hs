@@ -8,6 +8,8 @@ import Data.List.Split
 --myInfo = Book 9780135072455 "Algebra of Programming"
 --         ["Richard Bird", "Oege de Moor"]
 
+velocidadVuelo = 420
+
 main= do  
         handle <- openFile "DatasetM.txt" ReadMode
         contents <- hGetContents handle
@@ -29,7 +31,14 @@ main= do
         --let coincidencas2=buscarDest "San Antonio, TX" coincidencas1
         --print (length listaTuplas)
         let impriVal = "Distancia: " ++ coincidencas2 !!0 !!2 ++ "Km  Costo: " ++ coincidencas2 !!0 !!3
-        print  impriVal
+       let distancia = coincidencas2 !!0 !!2
+        let distNum = read distancia :: Float
+        let tiempoVuelo =  velocidadVuelo/distNum
+        --let distNum2 =  show tiempoVuelo
+        --print  mostrarValores
+        print impriVal
+        print "Tiempo aprox (horas): " 
+        print tiempoVuelo 
         hClose handle
 
 
