@@ -8,7 +8,7 @@ data MagazineInfo = Magazine Int String [String]
 myInfo = Book 9780135072455 "Algebra of Programming"
          ["Richard Bird", "Oege de Moor"]
 
---lineas = []
+
 main= do  
        	--
         handle <- openFile "DatasetM.txt" ReadMode
@@ -16,14 +16,21 @@ main= do
         let lineas = splitOneOf ";\n" contents
         --let singlewords = words contents
         --let res= busSec lineas "503"
-        let lista=tomarDos ["bs","sbs","dvsb"]
-        print lista
+        let lista = ["bs","sbs","dvsb","kbj"]
+        let jhj=armarListCom lista
+        print jhj
         
         hClose handle
 
 
 tomarDos :: [String] -> [String]
 tomarDos l = take 2 l
+
+
+armarListCom :: [String]->[[String]]
+armarListCom []=[[]]
+armarListCom l =  [tomarDos l] ++ armarListCom (drop 2 l) 
+
 
 busSec::Ord a=>[a]->a->Bool
 busSec [] _ = False
