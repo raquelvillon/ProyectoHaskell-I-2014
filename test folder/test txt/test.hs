@@ -1,5 +1,5 @@
 import System.IO  
-import Control.Monad
+--import Control.Monad
 import Data.List.Split
 --data BookInfo = Book Int String [String]
 --                deriving (Show)
@@ -21,16 +21,15 @@ main= do
         putStrLn "Ingrese Ciudad Destino: "
         cDest <- getLine
         let coincidencas1=buscarOrg cOrig listaTuplas
-        let coincidencas2=buscarDest cDest listaTuplas
+        let coincidencas2=buscarDest cDest coincidencas1
         
         --let ruta0=armarRuta cOrig listaTuplas
 
         --let coincidencas1=buscarOrg "Dallas, TX" listaTuplas
         --let coincidencas2=buscarDest "San Antonio, TX" coincidencas1
         --print (length listaTuplas)
-        let impriVal = "Distancia: " ++ coincidencas2 !!0 !!2 ++ "Costo: " ++ coincidencas2 !!0 !!3
+        let impriVal = "Distancia: " ++ coincidencas2 !!0 !!2 ++ "Km  Costo: " ++ coincidencas2 !!0 !!3
         print  impriVal
-        --print  ruta0
         hClose handle
 
 
@@ -44,16 +43,16 @@ armarListCom l =  [tomarTupla l] ++ armarListCom (drop 4 l)
 buscarOrg :: String -> [[String]] -> [[String]]
 buscarOrg o [[]] = [[]]
 buscarOrg o itinierarios =  
-    if o `elem` itinierarios!!0
+    if o == itinierarios !!0 !!0
         then [itinierarios!!0] ++ buscarOrg o (drop 1 itinierarios)
         else buscarOrg o (drop 1 itinierarios)
 
 buscarDest :: String -> [[String]] -> [[String]]
-buscarDest o [[]] = [[]]
-buscarDest o itinierarios =  
-    if o `elem` itinierarios!!1
-        then [itinierarios!!1] ++ buscarDest o (drop 2 itinierarios)
-        else buscarDest o (drop 2 itinierarios)
+buscarDest d [[]] = [[]]
+buscarDest d itinierarios =  
+    if d == itinierarios !!0 !!1
+        then [itinierarios!!0] ++ buscarDest d (drop 1 itinierarios)
+        else buscarDest d (drop 1 itinierarios)
 
 --mostrarValores :: [[String]] -> return()
 --mostrarValores l = do
@@ -69,10 +68,8 @@ armarRuta  o itinierarios =
         else buscarDest o (drop 2 itinierarios)
 
 
-
-
-busSec::Ord a=>[a]->a->Bool
-busSec [] _ = False
-busSec (x:xs) ele
-                    | x==ele = True
-                    | True = busSec xs ele
+--busSec::Ord a=>[a]->a->Bool
+--busSec [] _ = False
+--busSec (x:xs) ele
+--                    | x==ele = True
+--                    | True = busSec xs ele
