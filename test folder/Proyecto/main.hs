@@ -116,7 +116,7 @@ ciudadToNum2 "Puyo"      = 6
 ciudadToNum2 x= read x :: Int
 
 sacarDolar :: String -> String
-sacarDolar s = drop 1 s
+sacarDolar s = drop 2 s
 
 stringToFloat :: String -> Float
 stringToFloat n = read (sacarDolar n) :: Float
