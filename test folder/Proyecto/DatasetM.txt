@@ -1,0 +1,208 @@
+CityName1;CityName2;Distance;OverallAverageFare
+Austin, TX;Houston, TX;148;$172,78
+Seattle, WA;Portland, OR;129;$127,29
+Chicago, IL;Indianapolis, IN;177;$187,40
+Houston, TX;San Antonio, TX;192;$164,43
+Washington, DC (Metro Area);Norfolk, VA (Metro Area);159;$162,04
+Dallas, TX;Austin, TX;190;$161,41
+Dallas, TX;Oklahoma City, OK;181;$159,44
+Orlando, FL;Miami, FL (Metro Area);192;$155,18
+Seattle, WA;Pasco/Kennewick/Richland, WA;172;$121,00
+Atlanta, GA (Metro Area);Charlotte, NC;226;$273,48
+Washington, DC (Metro Area);New York City, NY (Metro Area);250;$215,22
+Boston, MA (Metro Area);New York City, NY (Metro Area);209;$197,66
+Pittsburgh, PA;Washington, DC (Metro Area);210;$194,44
+Chicago, IL;Detroit, MI;235;$173,92
+Corpus Christi, TX;Houston, TX;201;$166,52
+Dallas, TX;Houston, TX;247;$155,95
+New York City, NY (Metro Area);Syracuse, NY;223;$154,90
+Dallas, TX;San Antonio, TX;248;$154,78
+Miami, FL (Metro Area);Tampa, FL (Metro Area);204;$153,45
+St. Louis, MO;Kansas City, MO;237;$140,11
+Seattle, WA;Spokane, WA;224;$128,12
+Medford, OR;Portland, OR;222;$125,60
+Dallas, TX;Tulsa, OK;237;$120,69
+Las Vegas, NV;Los Angeles, CA (Metro Area);236;$120,26
+Chicago, IL;Cincinnati, KY;265;$336,58
+Pittsburgh, PA;Philadelphia, PA;268;$264,37
+Washington, DC (Metro Area);Syracuse, NY;298;$196,27
+Washington, DC (Metro Area);Raleigh/Durham, NC;255;$196,03
+Chicago, IL;Columbus, OH;296;$166,68
+New York City, NY (Metro Area);Portland, ME;284;$164,89
+Boston, MA (Metro Area);Philadelphia, PA;289;$159,33
+Nashville, TN;St. Louis, MO;272;$155,84
+Washington, DC (Metro Area);Rochester, NY;296;$155,72
+Burlington, VT;New York City, NY (Metro Area);266;$154,33
+Minneapolis, MN;Milwaukee, WI;297;$153,78
+Atlanta, GA (Metro Area);Jacksonville, FL;270;$153,16
+New York City, NY (Metro Area);Rochester, NY;285;$151,34
+Chicago, IL;St. Louis, MO;258;$149,90
+Dallas, TX;Lubbock, TX;293;$148,30
+Atlanta, GA (Metro Area);Pensacola, FL;271;$148,14
+Chicago, IL;Louisville, KY;287;$147,21
+Buffalo, NY;Washington, DC (Metro Area);296;$139,11
+Houston, TX;Harlingen/San Benito, TX;295;$137,64
+Boise, ID;Spokane, WA;287;$135,71
+Spokane, WA;Portland, OR;279;$128,29
+Phoenix, AZ;Las Vegas, NV;276;$124,76
+Las Vegas, NV;San Diego, CA;258;$120,81
+Fresno, CA;Las Vegas, NV;259;$120,65
+New York City, NY (Metro Area);Richmond, VA;325;$313,50
+New York City, NY (Metro Area);Norfolk, VA (Metro Area);337;$238,82
+Charlotte, NC;Jacksonville, FL;328;$234,57
+Charlotte, NC;Columbus, OH;347;$222,28
+Nashville, TN;Charlotte, NC;328;$221,70
+Philadelphia, PA;Raleigh/Durham, NC;337;$217,19
+Atlanta, GA (Metro Area);Greensboro/High Point, NC;306;$212,27
+Boston, MA (Metro Area);Rochester, NY;343;$206,28
+Cleveland, OH (Metro Area);Washington, DC (Metro Area);314;$185,83
+Houston, TX;New Orleans, LA;305;$185,06
+Chicago, IL;Des Moines, IA;306;$179,28
+Washington, DC (Metro Area);Columbus, OH;337;$177,86
+Cleveland, OH (Metro Area);Chicago, IL;343;$175,52
+Atlanta, GA (Metro Area);Memphis, TN;332;$172,38
+Dallas, TX;Midland/Odessa, TX;319;$168,49
+Albany, NY;Washington, DC (Metro Area);325;$164,98
+Austin, TX;Lubbock, TX;341;$164,65
+Hartford, CT;Washington, DC (Metro Area);326;$161,86
+Phoenix, AZ;El Paso, TX;347;$151,98
+Nashville, TN;Columbus, OH;337;$149,93
+Albuquerque, NM;Phoenix, AZ;328;$149,52
+Las Vegas, NV;Reno, NV;345;$145,23
+St. Louis, MO;Milwaukee, WI;317;$145,03
+Dallas, TX;Amarillo, TX;323;$143,24
+Phoenix, AZ;San Diego, CA;304;$142,78
+Buffalo, NY;New York City, NY (Metro Area);326;$141,98
+St. Louis, MO;Omaha, NE;342;$141,29
+Chicago, IL;Minneapolis, MN;349;$138,58
+Jacksonville, FL;Miami, FL (Metro Area);335;$138,44
+Dallas, TX;Wichita, KS;333;$136,30
+Atlanta, GA (Metro Area);Louisville, KY;321;$136,08
+Dallas, TX;Little Rock, AR;304;$133,59
+Boise, ID;Portland, OR;344;$131,42
+Albuquerque, NM;Denver, CO;349;$129,17
+Cleveland, OH (Metro Area);Philadelphia, PA;363;$336,59
+Pittsburgh, PA;New York City, NY (Metro Area);375;$264,10
+Atlanta, GA (Metro Area);Cincinnati, KY;373;$251,36
+Pittsburgh, PA;Charlotte, NC;366;$225,60
+Greensboro/High Point, NC;Philadelphia, PA;365;$208,31
+Minneapolis, MN;Kansas City, MO;393;$202,78
+Washington, DC (Metro Area);Charlotte, NC;361;$191,65
+Dallas, TX;Corpus Christi, TX;354;$179,73
+Houston, TX;Little Rock, AR;393;$177,14
+Dallas/Fort Worth, TX;Baton Rouge, LA;383;$168,14
+Atlanta, GA (Metro Area);Raleigh/Durham, NC;356;$154,18
+Houston, TX;Jackson/Vicksburg, MS;359;$153,80
+Las Vegas, NV;Sacramento, CA;397;$152,23
+Las Vegas, NV;Salt Lake City, UT;368;$142,81
+Tucson, AZ;San Diego, CA;368;$142,49
+Los Angeles, CA (Metro Area);Santa Rosa, CA;399;$141,33
+Phoenix, AZ;Los Angeles, CA (Metro Area);370;$139,91
+Seattle, WA;Boise, ID;399;$136,31
+Boston, MA (Metro Area);Buffalo, NY;395;$134,86
+San Francisco, CA (Metro Area);Los Angeles, CA (Metro Area);372;$129,42
+Denver, CO;Salt Lake City, UT;391;$122,64
+Tucson, AZ;Las Vegas, NV;365;$119,83
+Las Vegas, NV;Stockton, CA;359;$89,19
+Dallas, TX;Memphis, TN;432;$297,50
+Charlotte, NC;Philadelphia, PA;449;$269,09
+Washington, DC (Metro Area);Columbia, SC;438;$255,35
+Cleveland, OH (Metro Area);Charlotte, NC;430;$255,23
+Miami, FL (Metro Area);Tallahassee, FL;402;$246,24
+Columbus, OH;Philadelphia, PA;406;$243,51
+Houston, TX;Midland/Odessa, TX;441;$236,84
+Cleveland, OH (Metro Area);Raleigh/Durham, NC;416;$236,29
+Washington, DC (Metro Area);Cincinnati, KY;430;$225,57
+Atlanta, GA (Metro Area);Sarasota/Bradenton, FL;444;$210,35
+Charlotte, NC;Indianapolis, IN;427;$207,58
+Houston, TX;Oklahoma City, OK;419;$199,18
+Austin, TX;New Orleans, LA;444;$196,12
+Dallas, TX;Jackson/Vicksburg, MS;408;$194,46
+Burlington, VT;Washington, DC (Metro Area);441;$193,94
+Washington, DC (Metro Area);Detroit, MI;409;$193,62
+St. Louis, MO;Minneapolis, MN;448;$188,39
+Nashville, TN;Chicago, IL;409;$174,96
+Washington, DC (Metro Area);Dayton, OH;406;$169,24
+St. Louis, MO;Detroit, MI;440;$169,18
+Chicago, IL;Kansas City, MO;405;$166,89
+Atlanta, GA (Metro Area);New Orleans, LA;425;$166,61
+Atlanta, GA (Metro Area);Columbus, OH;447;$166,27
+Pittsburgh, PA;Chicago, IL;413;$166,25
+Atlanta, GA (Metro Area);Tampa, FL (Metro Area);406;$163,97
+Atlanta, GA (Metro Area);Indianapolis, IN;432;$161,05
+Atlanta, GA (Metro Area);Orlando, FL;404;$159,84
+Washington, DC (Metro Area);Greer, SC;426;$159,09
+Columbus, OH;St. Louis, MO;409;$157,86
+Los Angeles, CA (Metro Area);Reno, NV;415;$155,67
+Chicago, IL;Omaha, NE;423;$155,42
+Nashville, TN;Panama City, FL;401;$153,51
+Dallas, TX;New Orleans, LA;447;$152,10
+San Francisco, CA (Metro Area);Palm Springs, CA;421;$151,69
+Kansas City, MO;Milwaukee, WI;436;$151,47
+Nashville, TN;Raleigh/Durham, NC;442;$147,88
+Los Angeles, CA (Metro Area);Sacramento, CA;404;$147,74
+Boston, MA (Metro Area);Washington, DC (Metro Area);418;$145,18
+San Francisco, CA (Metro Area);San Diego, CA;447;$142,99
+Las Vegas, NV;San Francisco, CA (Metro Area);414;$142,88
+Cleveland, OH (Metro Area);Nashville, TN;448;$141,39
+Atlanta, GA (Metro Area);Dayton, OH;432;$129,54
+Portland, OR;Reno, NV;444;$124,93
+Detroit, MI;Philadelphia, PA;453;$329,17
+Washington, DC (Metro Area);Knoxville, TN;464;$321,89
+Charlotte, NC;Detroit, MI;500;$288,44
+Atlanta, GA (Metro Area);Little Rock, AR;453;$281,56
+Chicago, IL;Knoxville, TN;475;$242,61
+New York City, NY (Metro Area);Greensboro/High Point, NC;492;$240,61
+Houston, TX;Memphis, TN;484;$236,64
+Indianapolis, IN;Raleigh/Durham, NC;489;$227,17
+Cleveland, OH (Metro Area);New York City, NY (Metro Area);459;$216,58
+Houston, TX;Lubbock, TX;474;$211,13
+Houston, TX;Tulsa, OK;453;$209,43
+San Antonio, TX;New Orleans, LA;494;$209,36
+Boston, MA (Metro Area);Norfolk, VA (Metro Area);487;$204,14
+Eugene, OR;San Francisco, CA (Metro Area);471;$202,09
+Nashville, TN;Detroit, MI;456;$190,00
+Chicago, IL;Memphis, TN;491;$188,65
+Washington, DC (Metro Area);Charleston, SC;472;$185,17
+New York City, NY (Metro Area);Raleigh/Durham, NC;463;$185,10
+Atlanta, GA (Metro Area);Richmond, VA;481;$176,68
+Atlanta, GA (Metro Area);St. Louis, MO;484;$175,12
+Washington, DC (Metro Area);Portland, ME;493;$174,72
+Charlotte, NC;Orlando, FL;468;$168,46
+Tampa, FL (Metro Area);New Orleans, LA;488;$167,08
+Dallas, TX;Kansas City, MO;460;$165,22
+Buffalo, NY;Chicago, IL;473;$165,17
+Dallas/Fort Worth, TX;Mission/McAllen/Edinburg, TX;469;$164,85
+Nashville, TN;Kansas City, MO;491;$164,15
+Nashville, TN;New Orleans, LA;471;$163,67
+Birmingham, AL;Orlando, FL;479;$162,52
+Washington, DC (Metro Area);Louisville, KY;495;$161,85
+Pittsburgh, PA;Nashville, TN;462;$161,18
+Nashville, TN;Jacksonville, FL;483;$160,59
+Phoenix, AZ;Fresno, CA;493;$160,23
+Minneapolis, MN;Lansing, MI;455;$159,79
+San Diego, CA;Reno, NV;488;$158,70
+El Paso, TX;San Antonio, TX;496;$158,60
+Boston, MA (Metro Area);Richmond, VA;487;$156,05
+Denver, CO;Sioux Falls, SD;483;$155,41
+Birmingham, AL;Tampa, FL (Metro Area);459;$155,37
+Pittsburgh, PA;Boston, MA (Metro Area);496;$154,79
+Indianapolis, IN;Kansas City, MO;451;$150,61
+Tucson, AZ;Los Angeles, CA (Metro Area);453;$150,59
+Sacramento, CA;San Diego, CA;480;$150,12
+Dallas, TX;Harlingen/San Benito, TX;461;$148,28
+Albuquerque, NM;Las Vegas, NV;486;$145,04
+Sacramento, CA;Portland, OR;479;$141,21
+Denver, CO;Oklahoma City, OK;495;$134,75
+Denver, CO;Omaha, NE;472;$118,23
+Washington, DC (Metro Area);Flint, MI;452;$115,04
+Detroit, MI;Minneapolis, MN;528;$324,88
+Minneapolis, MN;Indianapolis, IN;503;$305,23
+Hartford, CT;Detroit, MI;549;$291,25
+Columbus, OH;New York City, NY (Metro Area);519;$281,11
+Cincinnati, KY;Philadelphia, PA;507;$281,10
+Charlotte, NC;Memphis, TN;511;$258,94
+Detroit, MI;New York City, NY (Metro Area);540;$244,65
+Amarillo, TX;Houston, TX;537;$243,79
+Charlotte, NC;Tampa, FL (Metro Area);507;$240,95
+Sacramento, CA;Salt Lake City, UT;532;$239,81

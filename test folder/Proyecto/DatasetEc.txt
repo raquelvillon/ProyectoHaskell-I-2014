@@ -1,0 +1,10 @@
+Quito;Guayaquil;420;$60
+Quito;Cuenca;442;$65
+Quito;Machala;518;$70
+Quito;Loja;647;$100
+Quito;Puyo;237;$30
+Guayaquil;Machala;191;$20
+Guayaquil;Loja;415;$65
+Guayaquil;Cuenca;250;$30
+Machala;Loja;235;$35
+Cuenca;Loja;205;$30
