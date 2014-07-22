@@ -20,15 +20,15 @@ creaGrafo d cs vs =
        else [(x2,(x1,p))|(x1,x2,p) <- vs, x1 /= x2]) ++
       [(x1,(x2,p)) | (x1,x2,p) <- vs])
 
---nodos :: (Ix v,Num p) => (Grafo v p) -> [v]
---nodos g = indices g
+{-nodos :: (Ix v,Num p) => (Grafo v p) -> [v]
+nodos g = indices g
 
---peso :: (Ix v,Num p) => v -> v -> (Grafo v p) -> p
---peso x y g = head [c | (a,c) <- g!x , a == y]
+peso :: (Ix v,Num p) => v -> v -> (Grafo v p) -> p
+peso x y g = head [c | (a,c) <- g!x , a == y]
 
---aristasND :: (Ix v,Num p) => (Grafo v p) -> [(v,v,p)]
---aristasND g = 
---    [(v1,v2,w) | v1 <- nodos g , (v2,w) <- g!v1 , v1 < v2]
+aristasND :: (Ix v,Num p) => (Grafo v p) -> [(v,v,p)]
+aristasND g = 
+    [(v1,v2,w) | v1 <- nodos g , (v2,w) <- g!v1 , v1 < v2]-}
 
 {-Referencia http://stackoverflow.com/questions/11168238/haskell-generating-all-paths-between-nodes
 devuelve una lista de listas de tuplas que representan todos los caminos posibles entre x y 
@@ -49,8 +49,8 @@ main= do
         handle <- openFile "DatasetSimple.txt" ReadMode --lee el dataset
         contents <- hGetContents handle -- devuelve un dato manejable 
         let lineas = splitOneOf ";\n" contents -- separa el contendido cada vez que encuentra un : o un salto de linea
-        let gT = tuplasDistanciasG lineas --generacion de tuplas de distandias considerando sólo la distancia del dataset
-        let gC = tuplasCostoG lineas --generacion de tuplas de distandias considerando sólo el costo del dataset
+        let gT = tuplasGrafoDistancias lineas --generacion de tuplas de distandias considerando sólo la distancia del dataset
+        let gC = tuplasGrafoCostos lineas --generacion de tuplas de distandias considerando sólo el costo del dataset
         -- interacción con el usuario 
         putStr "Ingrese Ciudad Origen: "
         cOrigS <- getLine
@@ -61,9 +61,9 @@ main= do
         putStrLn "FILTRO \n\t 1.  Tiempo\n\t 2.  Costo\n"
         putStr "Ingrese el numero de la opcion: "
         f<-getLine
+        --según la opción ingresada, ejecuta el código con grafos diferentes y con resultados diferentes
         if f=="1"
             then do 
-                --putStrLn"Espere..."
                 let g = creaGrafo True (1,70) gT
                 let c = connect cOrig cDest g
                 if null c 
@@ -71,15 +71,14 @@ main= do
                         let msj = "No hay ruta entre "++cOrigS++" y " ++ cDestS
                         print msj
                     else do
-                        let tp = distantcias c
-                        let d = minimum tp
-                        printPantalla d cOrig cDest
-                        let tVuelo = tiempoDeVuelo d
+                        let todos_caminos = valorTodosCaminos c
+                        let camino_mas_corto = minimum todos_caminos --saca el camino mas corto
+                        printPantalla camino_mas_corto cOrig cDest
+                        let tVuelo = tiempoDeVuelo camino_mas_corto
                         putStr "En (aprox horas): "
                         print (tVuelo)
 
             else do 
-                --putStrLn"Espere..."
                 let g = creaGrafo True (1,70) gC
                 let c = connect cOrig cDest g
                 if null c 
@@ -87,87 +86,66 @@ main= do
                         let msj = "No hay ruta entre "++cOrigS++" y " ++ cDestS
                         print msj
                     else do
-                        let tp = distantcias c
-                        let d = minimum tp
-                        printPantalla d cOrig cDest
-                        let costo= costoDeVuelo d 
+                        let todos_caminos = valorTodosCaminos c
+                        let camino_mas_corto = minimum todos_caminos --saca el camino mas corto
+                        printPantalla camino_mas_corto cOrig cDest
+                        let costo= costoDeVuelo camino_mas_corto 
                         putStr "Costo de : $"
                         print costo
-       
-        --let listaTuplas=armarListCom lineas
-        --let coincidencas1=buscarOrg cOrig listaTuplas
-        --let coincidencas2=buscarDest cDest coincidencas1
-        --let impriVal = "Distancia: " ++ coincidencas2 !!0 !!2 ++ "Km  Costo: " ++ coincidencas2 !!0 !!3
-        --let distancia = coincidencas2 !!0 !!2
-        --let distNum = read distancia :: Float
-        --let tiempoVuelo =  velocidadVuelo/distNum
-        --print impriVal
-        --print "Tiempo aprox (horas): " 
-        --print tiempoVuelo 
         
         hClose handle
 
+{-suma los terceros elementos de la lista de tuplas.
+se obtiene un total de todas las distancias o costos (segun el grafo que se analice) de un camino que une 2 lugares -}
+sumaValorZ :: [(Int,Int,Int)] -> (Int,Int,Int)
+sumaValorZ [] = (0,0,0)
+sumaValorZ (x:xs) = (0,0, obtenerZ x + obtenerZ (sumaValorZ xs)) 
 
-sumaDistantcias :: [(Int,Int,Int)] -> (Int,Int,Int)
-sumaDistantcias [] = (0,0,0)
-sumaDistantcias (x:xs) = (0,0, obtenerDistncia x + obtenerDistncia (sumaDistantcias xs)) 
+--Sacas el tercer valor de las tupla y lo devuelve
+obtenerZ:: (Int,Int,Int) -> Int
+obtenerZ (x,y,z)= z
 
-obtenerDistncia:: (Int,Int,Int) -> Int
-obtenerDistncia (x,y,z)= z
+--Saca el segundo valor de una tupla y lo devuelve 
+obtenerY:: (Int,Int,Int) -> Int
+obtenerY (x,y,z)= y 
 
-obtenerCiudad:: (Int,Int,Int) -> Int
-obtenerCiudad (x,y,z)= y 
+--agrega la suma de las distancias/costos (tuplas (0,0,valor)) a un camino determinado
+agregarSumaValorZ:: [(Int,Int,Int)] -> [(Int,Int,Int)] -> [(Int,Int,Int)]
+agregarSumaValorZ x y = head x : y 
 
-addTupla:: [(Int,Int,Int)] -> [(Int,Int,Int)] -> [(Int,Int,Int)]
-addTupla x y = head x : y 
+--devuelve un lista de caminos con los totales de distancia/costo en cada uno
+valorTodosCaminos:: [[(Int,Int,Int)]] -> [[(Int,Int,Int)]]
+valorTodosCaminos [] = []
+valorTodosCaminos (x:xs)= agregarSumaValorZ [sumaValorZ x] x : valorTodosCaminos xs
 
-distantcias:: [[(Int,Int,Int)]] -> [[(Int,Int,Int)]]
-distantcias [] = []
-distantcias (x:xs)= addTupla [sumaDistantcias x] x : distantcias xs
-
-obtenerDistanciasTuplas :: [[(Int,Int,Int)]] -> [Int]
-obtenerDistanciasTuplas []=[]
-obtenerDistanciasTuplas (x:xs) = [obtenerDistncia (head x)] ++ obtenerDistanciasTuplas xs
-
-obtenerCiudadTuplas :: [(Int,Int,Int)] -> [Int]
-obtenerCiudadTuplas []=[]
-obtenerCiudadTuplas (x:xs) = [obtenerCiudad x] ++ obtenerCiudadTuplas xs
+--devuelve los valores de las ciudades intermedias de un cammino 
+obtenerValoresYDeUnCamino :: [(Int,Int,Int)] -> [Int]
+obtenerValoresYDeUnCamino []=[]
+obtenerValoresYDeUnCamino (x:xs) = [obtenerY x] ++ obtenerValoresYDeUnCamino xs
                             
-obtenerCiudadesIntermedias :: [(Int,Int,Int)] -> [(Int,Int,Int)]
-obtenerCiudadesIntermedias l = do 
-                                let t = drop 1 l
-                                let f = init t
-                                f
-
+--Saca la primera y ultima tuppla de cada camino para luego poder sacar los valores intermedios
+depurarCaminos :: [(Int,Int,Int)] -> [(Int,Int,Int)]
+depurarCaminos l = do 
+                    let t = drop 1 l
+                    let f = init t
+                    f
+--Psas de numeros a Strings las ciudades intermedias de un determinado camino
 imprimirTrasbordos :: [Int] -> String
 imprimirTrasbordos []=""
 imprimirTrasbordos (x:xs) = do 
-                                numToCiudad x ++ " -> " ++ imprimirTrasbordos xs
+                            numToCiudad x ++ " -> " ++ imprimirTrasbordos xs
 
-                       
---ciudadToNum :: String -> Int
---ciudadToNum "Quito"     = 1
---ciudadToNum "Guayaquil" = 2
---ciudadToNum "Cuenca"    = 3
---ciudadToNum "Machala"   = 4
---ciudadToNum "Loja"      = 5
---ciudadToNum "Puyo"      = 6
---ciudadToNum x= read x :: Int
+--obtiene Las tuplas que describen los valores de Distancias entre ciudades para crear el grafo
+tuplasGrafoDistancias:: [String] -> [(Int,Int,Int)]
+tuplasGrafoDistancias [] =[] 
+tuplasGrafoDistancias l = [(ciudadToNum (l!!0), ciudadToNum (l!!1),ciudadToNum (l!!2))] ++tuplasGrafoDistancias(drop 4 l)
 
-sacarDolar :: String -> String
-sacarDolar s = drop 2 s
+--obtiene Las tuplas que describen los valores de Costos entre ciudades para crear el grafo
+tuplasGrafoCostos :: [String] -> [(Int,Int,Int)]
+tuplasGrafoCostos [] = []
+tuplasGrafoCostos l = [(ciudadToNum (l!!0), ciudadToNum (l!!1), ciudadToNum (drop 2 (l!!3)))] ++tuplasGrafoCostos(drop 4 l)
 
-stringToFloat :: String -> Float
-stringToFloat n = read (sacarDolar n) :: Float
-
-tuplasDistanciasG:: [String] -> [(Int,Int,Int)]
-tuplasDistanciasG [] =[] 
-tuplasDistanciasG l = [(ciudadToNum (l!!0), ciudadToNum (l!!1),ciudadToNum (l!!2))] ++tuplasDistanciasG(drop 4 l)
-
-tuplasCostoG :: [String] -> [(Int,Int,Int)]
-tuplasCostoG [] = []
-tuplasCostoG l = [(ciudadToNum (l!!0), ciudadToNum (l!!1),ciudadToNum (drop 2 (l!!3)))] ++tuplasCostoG(drop 4 l)
-
+{---------Procesamiento de listas de listas anterioro---------
 tomarTupla :: [String] -> [String]
 tomarTupla l = take 4 l
 
@@ -189,38 +167,40 @@ buscarDest d itinierarios =
         then [itinierarios!!0] ++ buscarDest d (drop 1 itinierarios)
         else buscarDest d (drop 1 itinierarios)
 
-
 armarRuta :: String -> [[String]] -> [[String]]
 armarRuta o [[]] = [[]]
 armarRuta  o itinierarios =  
     if o `elem` itinierarios!!0 
         then [itinierarios!!0] ++ buscarDest o (drop 2 itinierarios)
-        else buscarDest o (drop 2 itinierarios)
+        else buscarDest o (drop 2 itinierarios)-}
 
+--devuelve un string con la descripción de un camino
 rutaImprimir :: [(Int,Int,Int)] -> String
 rutaImprimir l = do 
-                    let cidInt = obtenerCiudadesIntermedias l
-                    let oct = obtenerCiudadTuplas cidInt
+                    let cidInt = depurarCaminos l
+                    let oct = obtenerValoresYDeUnCamino cidInt
                     let transbordos = imprimirTrasbordos oct
                     let transbordosFix = take ((length transbordos) - 4) transbordos
                     transbordosFix
 
+--presenta en pantalla los resultados de la descripción del camino
 printPantalla :: [(Int,Int,Int)] -> Int -> Int -> IO ()
 printPantalla l orig dest = do  
                             let transbordos = rutaImprimir l
-                            --let tVuelo = tiempoDeVuelo l
                             let text = "Ruta Optima: desde " ++ numToCiudad orig ++ " a " ++ numToCiudad dest
                             print (text)   
                             putStr "Pasando por: " 
                             print (transbordos)  
 
-
+--Calcula el tiempo de vuelo con el total de la distancia de un camino
+--recibe un camino y devulve el total del tiempo 
 tiempoDeVuelo :: [(Int,Int,Int)] -> Float
 tiempoDeVuelo l = do  
-                    let distNum = obtenerDistncia (head l)
+                    let distNum = obtenerZ (head l)
                     let tempD = fromIntegral distNum :: Float
                     let impr = tempD/velocidadVuelo
                     impr
-
+--obtiene el Costo total de un camino determinado
+--recibe un camino y devuelve un valor
 costoDeVuelo :: [(Int,Int,Int)] -> Int
-costoDeVuelo l = obtenerDistncia (head l)
+costoDeVuelo l = obtenerZ (head l)
