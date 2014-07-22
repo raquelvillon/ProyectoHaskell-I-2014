@@ -64,7 +64,10 @@ main= do
                         let tp = distantcias c
                         let d = minimum tp
                         printPantalla d cOrig cDest
-                        --printPantalla d cOrig cDest
+                        let tVuelo = tiempoDeVuelo d
+                        putStr "En (aprox horas): "
+                        print (tVuelo)
+
             else do 
                 --putStrLn"Espere..."
                 let g = creaGrafo True (1,70) gC
@@ -80,7 +83,6 @@ main= do
                         let costo= costoDeVuelo d 
                         putStr "Costo de : $"
                         print costo
-                        --printPantalla d cOrig cDest
        
         --let listaTuplas=armarListCom lineas
         --let coincidencas1=buscarOrg cOrig listaTuplas
@@ -196,13 +198,12 @@ rutaImprimir l = do
 printPantalla :: [(Int,Int,Int)] -> Int -> Int -> IO ()
 printPantalla l orig dest = do  
                             let transbordos = rutaImprimir l
-                            let tVuelo = tiempoDeVuelo l
+                            --let tVuelo = tiempoDeVuelo l
                             let text = "Ruta Optima: desde " ++ numToCiudad orig ++ " a " ++ numToCiudad dest
                             print (text)   
                             putStr "Pasando por: " 
                             print (transbordos)  
-                            putStr "En (aprox horas): "
-                            print (tVuelo)
+
 
 tiempoDeVuelo :: [(Int,Int,Int)] -> Float
 tiempoDeVuelo l = do  
