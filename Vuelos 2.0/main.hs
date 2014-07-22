@@ -6,8 +6,12 @@ import Data.Array
 import Conversiones
 import GHC.Float
 
-type Grafo v p = Array v [(v,p)]
+{- referencia http://www.glc.us.es/~jalonso/vestigium/el-tipo-abstracto-de-datos-de-los-grafos-en-haskell/
+ creo un tipo Grafo que es un Array 
+-}
+type Grafo v p = Array v [(v,p)] 
 
+--función que parsea 
 creaGrafo :: (Ix v, Num p) => Bool -> (v,v) -> [(v,v,p)] -> Grafo v p
 creaGrafo d cs vs =
     accumArray 
@@ -16,32 +20,38 @@ creaGrafo d cs vs =
        else [(x2,(x1,p))|(x1,x2,p) <- vs, x1 /= x2]) ++
       [(x1,(x2,p)) | (x1,x2,p) <- vs])
 
-nodos :: (Ix v,Num p) => (Grafo v p) -> [v]
-nodos g = indices g
+--nodos :: (Ix v,Num p) => (Grafo v p) -> [v]
+--nodos g = indices g
 
-peso :: (Ix v,Num p) => v -> v -> (Grafo v p) -> p
-peso x y g = head [c | (a,c) <- g!x , a == y]
+--peso :: (Ix v,Num p) => v -> v -> (Grafo v p) -> p
+--peso x y g = head [c | (a,c) <- g!x , a == y]
 
-aristasND :: (Ix v,Num p) => (Grafo v p) -> [(v,v,p)]
-aristasND g = 
-    [(v1,v2,w) | v1 <- nodos g , (v2,w) <- g!v1 , v1 < v2]
+--aristasND :: (Ix v,Num p) => (Grafo v p) -> [(v,v,p)]
+--aristasND g = 
+--    [(v1,v2,w) | v1 <- nodos g , (v2,w) <- g!v1 , v1 < v2]
 
-    
+{-Referencia http://stackoverflow.com/questions/11168238/haskell-generating-all-paths-between-nodes
+devuelve una lista de listas de tuplas que representan todos los caminos posibles entre x y 
+utiiza funciones de la libreria Graph propia de Haskell 
+connect recibe  un num de Origen, un num de Deestino y un grafo-}
 connect x y g = helper x y g [x]
   where
     helper a b g visited
         | a == b    = [[]]
         | otherwise = [(a,c,d):path | (c,d) <- g!a, c `notElem` visited, path <- helper c b g (c:visited)]
 
-
+-- como los datos que se parsearán sólo contine distanicas y precios, sen necesitará calcular el tiempo por medio de un calculo
+-- vellocidadVuelo contiene la velocidad promedio a la que viajan los aviones (Km/h)
+-- para que pueda realizarse bien la conversion (velocidad=distancia/tiempo  => tiempo = distancia/velocidad) se lo transforma en Float
 velocidadVuelo = fromIntegral 420 :: Float
 
 main= do  
-        handle <- openFile "DatasetSimple.txt" ReadMode
-        contents <- hGetContents handle
-        let lineas = splitOneOf ";\n" contents
-        let gT = tuplasDistanciasG lineas
-        let gC = tuplasCostoG lineas
+        handle <- openFile "DatasetSimple.txt" ReadMode --lee el dataset
+        contents <- hGetContents handle -- devuelve un dato manejable 
+        let lineas = splitOneOf ";\n" contents -- separa el contendido cada vez que encuentra un : o un salto de linea
+        let gT = tuplasDistanciasG lineas --generacion de tuplas de distandias considerando sólo la distancia del dataset
+        let gC = tuplasCostoG lineas --generacion de tuplas de distandias considerando sólo el costo del dataset
+        -- interacción con el usuario 
         putStr "Ingrese Ciudad Origen: "
         cOrigS <- getLine
         let cOrig = ciudadToNum cOrigS
