@@ -4,6 +4,7 @@ import Data.List
 import Data.Graph
 import Data.Array
 import Conversiones
+import GHC.Float
 
 type Grafo v p = Array v [(v,p)]
 
@@ -33,7 +34,7 @@ connect x y g = helper x y g [x]
         | otherwise = [(a,c,d):path | (c,d) <- g!a, c `notElem` visited, path <- helper c b g (c:visited)]
 
 
-velocidadVuelo = 420
+velocidadVuelo = fromIntegral 420 :: Float
 
 main= do  
         handle <- openFile "DatasetSimple.txt" ReadMode
@@ -52,9 +53,9 @@ main= do
         f<-getLine
         if f=="1"
             then do 
-                putStrLn"Espere..."
+                --putStrLn"Espere..."
                 let g = creaGrafo True (1,70) gT
-                let c = connect 5 60 g
+                let c = connect cOrig cDest g
                 if null c 
                     then do
                         let msj = "No hay ruta entre "++cOrigS++" y " ++ cDestS
@@ -62,11 +63,12 @@ main= do
                     else do
                         let tp = distantcias c
                         let d = minimum tp
-                        print d
+                        printPantalla d cOrig cDest
+                        --printPantalla d cOrig cDest
             else do 
-                putStrLn"Espere..."
+                --putStrLn"Espere..."
                 let g = creaGrafo True (1,70) gC
-                let c = connect 5 60 g
+                let c = connect cOrig cDest g
                 if null c 
                     then do
                         let msj = "No hay ruta entre "++cOrigS++" y " ++ cDestS
@@ -74,7 +76,11 @@ main= do
                     else do
                         let tp = distantcias c
                         let d = minimum tp
-                        print d
+                        printPantalla d cOrig cDest
+                        let costo= costoDeVuelo d 
+                        putStr "Costo de : $"
+                        print costo
+                        --printPantalla d cOrig cDest
        
         --let listaTuplas=armarListCom lineas
         --let coincidencas1=buscarOrg cOrig listaTuplas
@@ -95,7 +101,10 @@ sumaDistantcias [] = (0,0,0)
 sumaDistantcias (x:xs) = (0,0, obtenerDistncia x + obtenerDistncia (sumaDistantcias xs)) 
 
 obtenerDistncia:: (Int,Int,Int) -> Int
-obtenerDistncia (x,y,z)= z 
+obtenerDistncia (x,y,z)= z
+
+obtenerCiudad:: (Int,Int,Int) -> Int
+obtenerCiudad (x,y,z)= y 
 
 addTupla:: [(Int,Int,Int)] -> [(Int,Int,Int)] -> [(Int,Int,Int)]
 addTupla x y = head x : y 
@@ -107,10 +116,23 @@ distantcias (x:xs)= addTupla [sumaDistantcias x] x : distantcias xs
 obtenerDistanciasTuplas :: [[(Int,Int,Int)]] -> [Int]
 obtenerDistanciasTuplas []=[]
 obtenerDistanciasTuplas (x:xs) = [obtenerDistncia (head x)] ++ obtenerDistanciasTuplas xs
-                            
-obtenerCiudadIntermedia:: (Int,Int,Int) -> Int
-obtenerCiudadIntermedia (x,y,z)= y 
 
+obtenerCiudadTuplas :: [(Int,Int,Int)] -> [Int]
+obtenerCiudadTuplas []=[]
+obtenerCiudadTuplas (x:xs) = [obtenerCiudad x] ++ obtenerCiudadTuplas xs
+                            
+obtenerCiudadesIntermedias :: [(Int,Int,Int)] -> [(Int,Int,Int)]
+obtenerCiudadesIntermedias l = do 
+                                let t = drop 1 l
+                                let f = init t
+                                f
+
+imprimirTrasbordos :: [Int] -> String
+imprimirTrasbordos []=""
+imprimirTrasbordos (x:xs) = do 
+                                numToCiudad x ++ " -> " ++ imprimirTrasbordos xs
+
+                       
 --ciudadToNum :: String -> Int
 --ciudadToNum "Quito"     = 1
 --ciudadToNum "Guayaquil" = 2
@@ -163,3 +185,31 @@ armarRuta  o itinierarios =
         then [itinierarios!!0] ++ buscarDest o (drop 2 itinierarios)
         else buscarDest o (drop 2 itinierarios)
 
+rutaImprimir :: [(Int,Int,Int)] -> String
+rutaImprimir l = do 
+                    let cidInt = obtenerCiudadesIntermedias l
+                    let oct = obtenerCiudadTuplas cidInt
+                    let transbordos = imprimirTrasbordos oct
+                    let transbordosFix = take ((length transbordos) - 4) transbordos
+                    transbordosFix
+
+printPantalla :: [(Int,Int,Int)] -> Int -> Int -> IO ()
+printPantalla l orig dest = do  
+                            let transbordos = rutaImprimir l
+                            let tVuelo = tiempoDeVuelo l
+                            let text = "Ruta Optima: desde " ++ numToCiudad orig ++ " a " ++ numToCiudad dest
+                            print (text)   
+                            putStr "Pasando por: " 
+                            print (transbordos)  
+                            putStr "En (aprox horas): "
+                            print (tVuelo)
+
+tiempoDeVuelo :: [(Int,Int,Int)] -> Float
+tiempoDeVuelo l = do  
+                    let distNum = obtenerDistncia (head l)
+                    let tempD = fromIntegral distNum :: Float
+                    let impr = tempD/velocidadVuelo
+                    impr
+
+costoDeVuelo :: [(Int,Int,Int)] -> Int
+costoDeVuelo l = obtenerDistncia (head l)
